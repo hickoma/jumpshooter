@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         set { _instance._fireSpeed = value; }
     }
 
-    [SerializeField] private float _fireDamage = 10f;
+    [SerializeField] private float _fireDamage = 5f;
     public static float FireDamage
     {
         get { return _instance._fireDamage; }
@@ -47,12 +47,17 @@ public class GameManager : MonoBehaviour
         set { _instance._enemyHealth = value; }
     }
 
+    [SerializeField] private float _floorsSpeed = 0.5f;
+    public static float FloorsSpeed
+    {
+        get { return _instance._floorsSpeed; }
+        private set { _instance._floorsSpeed = value; }
+    }
+
+    public static bool GameStarted = false;
+
     private void Awake()
     {
         if (_instance == null) _instance = this;
-
-        var leftScreenBorderXCoord = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width * 0.1f, 0, 0)).x;
-        var rightScreenBorderXCoord = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width * 0.9f, 0, 0)).x;
-        Debug.Log(leftScreenBorderXCoord + " " + rightScreenBorderXCoord);
     }
 }

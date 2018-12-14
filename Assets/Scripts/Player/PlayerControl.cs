@@ -21,6 +21,16 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    private BoxCollider2D _playerCollider;
+    public BoxCollider2D PlayerCollider
+    {
+        get
+        {
+            if (!_playerCollider) _playerCollider = GetComponent<BoxCollider2D>();
+            return _playerCollider;
+        }
+    }
+
     private void OnEnable()
     {
         InputManager.MoveLeft += MoveLeft;
@@ -51,7 +61,15 @@ public class PlayerControl : MonoBehaviour
                 _shootTimerCurrentValue = 0;
             }
         }
+    }
 
+    private void LateUpdate()
+    {
+        var playerPosition = transform.position;
+        var downScreenBorderYCoord = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).y;
+        var upScreenBorderYCoord = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0)).y;
+        playerPosition.y = Mathf.Clamp(playerPosition.y, downScreenBorderYCoord + PlayerCollider.size.y / 2, upScreenBorderYCoord - PlayerCollider.size.y / 2);
+        transform.position = playerPosition;
     }
 
     private void MoveRight(float value)
@@ -60,7 +78,7 @@ public class PlayerControl : MonoBehaviour
         playerPosition.x += value * GameManager.MoveSpeed * Time.deltaTime;
         var leftScreenBorderXCoord = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).x;
         var rightScreenBorderXCoord = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
-        playerPosition.x = Mathf.Clamp(playerPosition.x, leftScreenBorderXCoord, rightScreenBorderXCoord);
+        playerPosition.x = Mathf.Clamp(playerPosition.x, leftScreenBorderXCoord + PlayerCollider.size.x/2, rightScreenBorderXCoord - PlayerCollider.size.x / 2);
         transform.position = playerPosition;
     }
 
@@ -70,7 +88,7 @@ public class PlayerControl : MonoBehaviour
         playerPosition.x -= value * GameManager.MoveSpeed * Time.deltaTime;
         var leftScreenBorderXCoord = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).x;
         var rightScreenBorderXCoord = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
-        playerPosition.x = Mathf.Clamp(playerPosition.x, leftScreenBorderXCoord, rightScreenBorderXCoord);
+        playerPosition.x = Mathf.Clamp(playerPosition.x, leftScreenBorderXCoord + PlayerCollider.size.x / 2, rightScreenBorderXCoord - PlayerCollider.size.x / 2);
         transform.position = playerPosition;
     }
 
@@ -95,6 +113,7 @@ public class PlayerControl : MonoBehaviour
 
     public void Die()
     {
+        GameManager.GameStarted = false;
         SceneManager.LoadScene(0);
     }
 }

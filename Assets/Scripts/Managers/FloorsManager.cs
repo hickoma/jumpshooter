@@ -20,6 +20,7 @@ public class FloorsManager : MonoBehaviour
             var newFloor = Instantiate(_floorPrefab, prevFloorPosition + Vector3.up * 2.5f, Quaternion.identity).GetComponent<Floor>();
             _floors.Add(newFloor);
             prevFloorPosition = newFloor.transform.position;
+            newFloor.GenerateEnemies();
         }
     }
 
@@ -41,6 +42,7 @@ public class FloorsManager : MonoBehaviour
             var newFloor = Instantiate(_floorPrefab, prevFloorPosition + Vector3.up * 2.5f, Quaternion.identity).GetComponent<Floor>();
             _floors.Add(newFloor);
             prevFloorPosition = newFloor.transform.position;
+            newFloor.GenerateEnemies();
         }
     }
 }

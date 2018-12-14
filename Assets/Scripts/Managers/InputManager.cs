@@ -45,9 +45,23 @@ public class InputManager : MonoBehaviour
             Shoot();
         }
         else _currentFrameTouchEnabled = false;
+        
+        if (_prevFrameTouchEnabled && !_currentFrameTouchEnabled && GameManager.GameStarted)
+        {
+            Jump();
+        }
 
-        if (_prevFrameTouchEnabled && !_currentFrameTouchEnabled) Jump();
 
+        if (!_prevFrameTouchEnabled && !_currentFrameTouchEnabled && !GameManager.GameStarted)
+        {
+            GameManager.GameStarted = true;
+        }
+
+        if (!_prevFrameTouchEnabled && _currentFrameTouchEnabled && !GameManager.GameStarted)
+        {
+            return;
+            //if (!GameManager.GameStarted) GameManager.GameStarted = true;
+        }
         _prevFrameTouchEnabled = _currentFrameTouchEnabled;
     }
 }
