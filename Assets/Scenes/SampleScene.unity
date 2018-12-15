@@ -497,7 +497,7 @@ MonoBehaviour:
   _playerControl: {fileID: 926405352}
   _moveSpeed: 0.3
   _fireSpeed: 10
-  _fireDamage: 10
+  _fireDamage: 5
   _fireRate: 2
   _enemyHealth: 20
   _floorsSpeed: 0.5
@@ -841,7 +841,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1601531714458692, guid: 1f3c23613856d5b45ac33805991a32e8, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f3c23613856d5b45ac33805991a32e8, type: 2}

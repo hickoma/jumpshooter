@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour
@@ -78,7 +76,7 @@ public class PlayerControl : MonoBehaviour
         playerPosition.x += value * GameManager.MoveSpeed * Time.deltaTime;
         var leftScreenBorderXCoord = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0)).x;
         var rightScreenBorderXCoord = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
-        playerPosition.x = Mathf.Clamp(playerPosition.x, leftScreenBorderXCoord + PlayerCollider.size.x/2, rightScreenBorderXCoord - PlayerCollider.size.x / 2);
+        playerPosition.x = Mathf.Clamp(playerPosition.x, leftScreenBorderXCoord + PlayerCollider.size.x / 2, rightScreenBorderXCoord - PlayerCollider.size.x / 2);
         transform.position = playerPosition;
     }
 
